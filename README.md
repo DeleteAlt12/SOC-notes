@@ -1,25 +1,4 @@
-What is a SOC Analyst?
-A SOC (Security Operations Center) analyst watches a company's computers and network
-for hackers or attacks, then responds when something looks wrong.
-
-Levels
-Level 1 – Triage
-First to see alerts
-Checks if it's a real problem or a false alarm
-Sends serious issues up to Level 2
-
-Level 2 – Incident Responder
-Investigates the issues Level 1 sends over
-Figures out what happened and how bad it is
-Works to stop and fix the problem
-
-Level 3 – Threat Hunter
-Most experienced
-Looks for hidden threats nobody caught yet
-Handles the hardest problems
-Helps improve the tools and rules the SOC uses
-
-What is SIEM?
-SIEM (Security Information and Event Management) is the main tool SOC analysts use. It
-collects data from across the network and flags anything unusual, so analysts don't have to
-check everything by hand.
+A SOC, or Security Operations Center, is the team responsible for keeping an eye on an organization's systems and catching threats before they cause damage. Analysts in a SOC don't build products or write code for the business. Their whole job is defense: watching, investigating, and responding.
+The work is split into three tiers. Tier 1 analysts are the first line of defense. They monitor incoming alerts and triage them, meaning they quickly sort through what's coming in and decide what actually needs attention versus what can be dismissed. Tier 2 analysts take the alerts that Tier 1 escalates and investigate them in depth, figuring out what happened, how serious it is, and how to contain it. Tier 3 analysts are the most senior. They hunt for threats that automated tools and lower tiers might miss, handle the toughest incidents, and often improve the detection rules and processes the rest of the SOC relies on.
+An alert is simply a notification that something unusual happened, like a login from an unfamiliar location or a spike in network traffic. Alerts come from a SIEM (Security Information and Event Management) system, which pulls in log data from across the network and flags patterns worth a human's attention.
+Not every alert is a real threat. A true positive is an alert that correctly identifies an actual problem. A false positive is an alert that looks suspicious but turns out to be harmless. A big part of triage is telling these apart quickly so analysts aren't wasting time chasing non issues while a real threat slips by.
