@@ -3,7 +3,7 @@ The work is split into three tiers. Tier 1 analysts are the first line of defens
 An alert is simply a notification that something unusual happened, like a login from an unfamiliar location or a spike in network traffic. Alerts come from a SIEM (Security Information and Event Management) system, which pulls in log data from across the network and flags patterns worth a human's attention.
 Not every alert is a real threat. A true positive is an alert that correctly identifies an actual problem. A false positive is an alert that looks suspicious but turns out to be harmless. A big part of triage is telling these apart quickly so analysts aren't wasting time chasing non issues while a real threat slips by.
 
-##Networking Fundamentals for SOC Analysts
+
 
 ## IP Addresses
 An IP address is the address of a device on a network. Private IPs only work inside a local network, common ranges are 10.x.x.x, 172.16.x.x, and 192.168.x.x. Public IPs are unique across the internet and reachable from anywhere.
