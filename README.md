@@ -39,3 +39,81 @@ Exfiltration, data stolen and sent out of a network without permission.
 Brute force, repeatedly guessing a password to break in.
 Spoofing, faking the source of traffic to look trustworthy.
 
+
+# Security Logs Notes
+
+## Why logs matter
+
+A log is a written record of something that happened on a computer, like a login or a program starting. Logs are like security camera footage for a computer.
+
+SOC analysts (the people who watch for attacks) rely on logs to spot alerts, figure out what happened, and prove how an attacker got in. If something is not logged, nobody can see it. That is why attackers try to clear logs.
+
+Every log entry helps answer: Who? What? When? Where from? Did it work?
+
+## Windows logs
+
+Open **Event Viewer** to read them. Files are saved as `.evtx` in `C:\Windows\System32\winevt\Logs\`
+
+The three main logs are **Security** (logins and account changes, the most important), **System** (Windows itself), and **Application** (installed programs). Some events only appear if auditing is turned on.
+
+### Key event IDs
+
+**4624:** Successful logon.
+
+**4625:** Failed logon.
+
+**4634:** Logoff.
+
+**4672:** Admin level privileges given to a logon.
+
+**4720:** User account created.
+
+**4732:** User added to a security group (watch for Administrators).
+
+**4740:** Account locked out.
+
+**4688:** New process started.
+
+**7045:** New service installed.
+
+**1102:** Security log cleared (big red flag).
+
+### Reading 4624 and 4625
+
+Check these fields: **Account Name** (who), **Logon Type** (how), **Source Network Address** (which IP), and for failures, **Sub Status** (why).
+
+Common logon types: **2** at the keyboard, **3** over the network, **10** Remote Desktop (RDP).
+
+Common failure reasons: **0xC000006A** wrong password, **0xC0000064** username does not exist.
+
+### Patterns to watch for
+
+Many 4625 events then a 4624 could mean a brute force attack finally worked.
+
+Many 4625 events across lots of accounts from one IP looks like password spraying.
+
+A 4624 with type 10 from an unknown IP means someone may be using Remote Desktop who should not be.
+
+A 1102 means someone is covering their tracks.
+
+## Linux logs
+
+Most logs live in `/var/log/`.
+
+`/var/log/auth.log` (Debian and Ubuntu) or `/var/log/secure` (Red Hat and CentOS) records logins and sudo use.
+
+`/var/log/syslog` or `/var/log/messages` holds general system messages.
+
+Use `last` to see login history and `sudo lastb` to see failed logins. Use `journalctl` to read the systemd journal.
+
+``bash
+tail /var/log/auth.log
+grep "Failed password" /var/log/auth.log
+grep "Accepted" /var/log/auth.log
+
+
+**"Failed password"** is the Linux version of 4625. **"Accepted"** is the Linux version of 4624. **"sudo ... COMMAND="** shows a command run with admin rights.
+
+## Takeaways
+
+Learn 4624 and 4625 first, then build outward. Log clearing is always suspicious. Windows uses Event Viewer, Linux uses plain text files in `/var/log/`.
